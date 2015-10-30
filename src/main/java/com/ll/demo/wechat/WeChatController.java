@@ -19,9 +19,21 @@ public class WeChatController {
 		
 		String pcCodeUrl = WeChatUtils.getPcCodeUrl();
 		model.addAttribute("pcCodeUrl", pcCodeUrl);
+
+		//测试access_token
+		//第一种 直接获取 通过synchronized 控制并发
+//		System.out.println("access_token---> " + WeChatUtils.getAccessToken());
+		
+		//第二种 写一个线程自动刷新
+		if(TokenThread.accessToken != null){
+			System.out.println("access token : " + TokenThread.accessToken.getAccess_token());
+		}else{
+			System.out.println("access token is null");
+		}
 		
 		return "/index";
 	}
+
 	
 	@RequestMapping("/init")
 	@ResponseBody
@@ -44,7 +56,7 @@ public class WeChatController {
 		
 		String code = request.getParameter("code");
 		
-		AccessTokenDTO accessTokenDTO = WeChatUtils.getAccessTokenDTO(code);
+		AccessTokenDTO accessTokenDTO = WeChatUtils.getLoginAccessTokenDTO(code);
 		
 		if(accessTokenDTO != null){
 			UserInfoDTO userInfoDTO = WeChatUtils.getUserInfoDTO(accessTokenDTO.getOpenid(), accessTokenDTO.getAccess_token());

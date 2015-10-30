@@ -9,6 +9,13 @@
   		<welcome-file>index</welcome-file>
   	</welcome-file-list>
   	
+  	<!-- wechat 获取access token -->
+  	<servlet>
+  		<servlet-name>initWeChatServlet</servlet-name>
+  		<servlet-class>com.ll.demo.wechat.InitWeChatServlet</servlet-class>
+  		<load-on-startup>0</load-on-startup>
+  	</servlet>
+  	
   <!-- The front controller of this Spring Web application, responsible for handling all application requests -->
 	<servlet>
 		<servlet-name>springDispatcherServlet</servlet-name>
